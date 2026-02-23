@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { StarSky } from "@/components/star-sky";
+import { StarSky } from "@/components/visuals/star-sky";
 
 export const metadata: Metadata = {
   title: "Marketing Digital",

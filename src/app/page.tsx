@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FeatureCarousel } from "@/components/feature-carousel";
+import { FeatureCarousel } from "@/components/home/feature-carousel";
 
 export default function HomePage() {
   return (
