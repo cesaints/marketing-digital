@@ -1,29 +1,20 @@
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-slate-200 dark:border-slate-800">
+    <header className="border-b border-neutral-800/60 bg-transparent">
       <div className="mx-auto flex max-w-5xl items-center justify-between p-4">
-        <Link href="/" className="font-semibold">
+        <Link href="/" className="font-semibold tracking-tight">
           Marketing Digital
         </Link>
 
         <nav className="flex items-center gap-3">
           <Link
             href="/login"
-            className="rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-900"
+            className="rounded-xl border border-neutral-800/70 bg-neutral-900/40 px-3 py-2 text-sm hover:bg-neutral-900/70"
           >
             Entrar
           </Link>
-          <Link
-            href="/cadastro"
-            className="rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-900"
-          >
-            Criar conta
-          </Link>
-
-          <ThemeToggle />
         </nav>
       </div>
     </header>
