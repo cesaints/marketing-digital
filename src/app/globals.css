@@ -1,3 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* =========================
+   THEME TOKENS — DARK FUTURE
+========================= */
+:root {
+  --bg: #0b0f1a;
+  --bg-2: #0f1524;
+  --card: #101827;
+  --ink: #e5e7eb;
+  --muted: #9aa3b2;
+  --line: #1f2937;
+  --violet: #7c3aed;
+  --cyan: #22d3ee;
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --g-hero: radial-gradient(1200px 600px at 50% -10%,
+      rgba(124, 58, 237, 0.25),
+      transparent 50%),
+    radial-gradient(900px 600px at 90% 0%,
+      rgba(34, 211, 238, 0.15),
+      transparent 50%),
+    radial-gradient(800px 600px at 10% 10%,
+      rgba(124, 58, 237, 0.15),
+      transparent 50%);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--g-hero), var(--bg);
+}
