@@ -9,13 +9,13 @@ export default function LoginPage() {
       <SiteHeader />
 
       <main className="mx-auto max-w-5xl p-6">
-        <div className="mt-10">
-          <h1 className="text-3xl font-semibold tracking-tight">Entrar</h1>
-          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-            Faça login para acessar sua área. Contas públicas estão desativadas.
+        <div className="mt-10 max-w-2xl">
+          <h1 className="h2">Entrar</h1>
+          <p className="mt-2 text-sm text-neutral-300">
+            Faça login para acessar suas ferramentas de cálculo e planejamento.
           </p>
 
-          <LoginForm hasGoogle />
+          <LoginForm />
         </div>
       </main>
     </div>

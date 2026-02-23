@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
+import Link from "next/link";
 
 export default function CadastroPage() {
   return (
@@ -7,15 +7,13 @@ export default function CadastroPage() {
       <SiteHeader />
 
       <main className="mx-auto max-w-5xl p-6">
-        <h1 className="text-2xl font-semibold">Cadastro</h1>
-
-        <div className="mt-6 max-w-md rounded-2xl border border-slate-200 p-5 dark:border-slate-800">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+        <h1 className="h2">Cadastro</h1>
+        <div className="mt-6 max-w-md card p-5">
+          <p className="text-sm text-neutral-300">
             Cadastro público está desativado no MVP.
           </p>
-
           <div className="mt-4">
-            <Link href="/login" className="text-sm underline underline-offset-4">
+            <Link href="/login" className="underline underline-offset-4 text-sm">
               Ir para login
             </Link>
           </div>

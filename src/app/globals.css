@@ -1,23 +1,37 @@
 @import "tailwindcss";
 
-/* Tokens do seu app */
+/* =========================
+   THEME TOKENS — DARK FUTURE
+========================= */
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a; /* slate-900 */
+  --bg: #0b0f1a;
+  --bg-2: #0f1524;
+  --card: #101827;
+  --ink: #e5e7eb;
+  --muted: #9aa3b2;
+  --line: #1f2937;
+  --violet: #7c3aed;
+  --cyan: #22d3ee;
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --g-hero: radial-gradient(1200px 600px at 50% -10%,
+      rgba(124, 58, 237, 0.25),
+      transparent 50%),
+    radial-gradient(900px 600px at 90% 0%,
+      rgba(34, 211, 238, 0.15),
+      transparent 50%),
+    radial-gradient(800px 600px at 10% 10%,
+      rgba(124, 58, 237, 0.15),
+      transparent 50%);
 }
 
-.dark {
-  --background: #020617; /* slate-950 */
-  --foreground: #f8fafc; /* slate-50 */
+:root {
+  color-scheme: dark;
 }
 
-/* Base */
 html,
 body {
-  height: 100%;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
+  min-height: 100%;
+  background: var(--g-hero), var(--bg);
 }
