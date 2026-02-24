@@ -1,102 +1,21 @@
-"use client";
-
-import * as React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { Suspense } from "react";
+import LoginClient from "./login-client";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const sp = useSearchParams();
-  const next = sp.get("next") || "/dashboard";
-
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-
-    try {
-      const r = await fetch("/api/login", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await r.json().catch(() => ({}));
-
-      if (!r.ok) {
-        setError(data?.error || "Não foi possível entrar.");
-        return;
-      }
-
-      router.push(next);
-      router.refresh();
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 pb-16 pt-10">
-      <div className="max-w-md rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
-        <h1 className="text-xl font-semibold text-white">Entrar</h1>
-        <p className="mt-2 text-sm text-white/65">
-          Faça login para acessar suas ferramentas de simulação e planejamento.
-        </p>
-
-        <form onSubmit={onSubmit} className="mt-6 grid gap-4">
-          <div>
-            <label className="text-sm font-medium text-white/80">Email</label>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              autoComplete="email"
-              className="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-violet-400/30"
-              placeholder="seuemail@dominio.com"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-white/80">Senha</label>
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              autoComplete="current-password"
-              className="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-violet-400/30"
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          {error && (
-            <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-100">
-              {error}
+    <Suspense
+      fallback={
+        <main className="min-h-[calc(100vh-1px)] px-6 py-10">
+          <div className="mx-auto flex min-h-[calc(100vh-80px)] w-full max-w-6xl items-center justify-center">
+            <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
+              <h1 className="text-xl font-semibold text-white">Entrar</h1>
+              <p className="mt-2 text-sm text-white/65">Carregando…</p>
             </div>
-          )}
-
-          <button
-            disabled={loading}
-            className="rounded-xl bg-violet-600 py-2.5 text-sm font-medium text-white hover:bg-violet-500 disabled:opacity-60"
-            type="submit"
-          >
-            {loading ? "Entrando..." : "Entrar"}
-          </button>
-
-          <div className="flex items-center justify-between text-xs text-white/55">
-            <Link href="/" className="hover:text-white/80">
-              Voltar
-            </Link>
-            <span>Marketing Digital • MVP</span>
           </div>
-        </form>
-      </div>
-    </main>
+        </main>
+      }
+    >
+      <LoginClient />
+    </Suspense>
   );
 }
