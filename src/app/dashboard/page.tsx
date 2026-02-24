@@ -11,11 +11,7 @@ export default function DashboardPage() {
   async function onLogout() {
     try {
       setLoading(true);
-
-      // chama API que limpa o cookie
       await fetch("/api/logout", { method: "POST" });
-
-      // manda pra home (tela do Entrar) e revalida
       router.replace("/");
       router.refresh();
     } finally {
@@ -25,7 +21,6 @@ export default function DashboardPage() {
 
   return (
     <main className="mx-auto w-full max-w-6xl px-6 pb-16 pt-14">
-      {/* Topo centralizado */}
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/70">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-300/80" />
@@ -37,21 +32,29 @@ export default function DashboardPage() {
         </h1>
 
         <p className="mt-2 text-sm leading-relaxed text-white/65">
-          Acesse as ferramentas do MVP. Comece cadastrando seus produtos e depois
-          simule ROI por campanha.
+          Acesse as ferramentas do MVP. Comece definindo sua estratégia (QFDP),
+          depois cadastre seus produtos e simule ROI por campanha.
         </p>
 
+        {/* Botões do topo: responsivos e consistentes */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <Link
+            href="/estrategia"
+            className="w-full rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500 sm:w-auto"
+          >
+            Abrir QFDP & Gestão
+          </Link>
+
+          <Link
             href="/produtos"
-            className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 sm:w-auto"
           >
             Ir para Produtos
           </Link>
 
           <Link
             href="/simulador"
-            className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 sm:w-auto"
           >
             Abrir Simulador
           </Link>
@@ -60,19 +63,32 @@ export default function DashboardPage() {
             type="button"
             onClick={onLogout}
             disabled={loading}
-            className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 disabled:opacity-60"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 disabled:opacity-60 sm:w-auto"
           >
             {loading ? "Saindo..." : "Sair"}
           </button>
         </div>
       </div>
 
-      {/* Cards centralizados */}
-      <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2">
+      {/* Cards de navegação (ordem: QFDP 1°, Produtos 2°, Simulação 3°) */}
+      <div className="mx-auto mt-10 grid max-w-5xl items-stretch gap-4 md:auto-rows-fr md:grid-cols-3">
+        <ToolCard
+          href="/estrategia"
+          title="QFDP & Gestão de Projeto"
+          badge="Estratégia"
+          description="Defina posicionamento (QFDP) e organize canais e campanhas em árvore hierárquica."
+          icon={<IconPlan />}
+          highlights={[
+            "QFDP (quadro, furadeira, decorado, público)",
+            "Árvore de grupos e subgrupos",
+            "Controle com painel de edição + modal de exclusão",
+          ]}
+        />
+
         <ToolCard
           href="/produtos"
           title="Cadastro de Produtos"
-          badge="Primeiro passo"
+          badge="Segundo passo"
           description="Cadastre preço e custo. Isso alimenta o simulador e evita conta manual."
           icon={<IconBox />}
           highlights={[
@@ -117,8 +133,9 @@ function ToolCard({
   return (
     <Link
       href={href}
-      className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition hover:bg-white/[0.05]"
+      className="group relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition hover:bg-white/[0.05]"
     >
+      {/* Conteúdo principal */}
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/10 px-3 py-1 text-xs text-white/65">
@@ -147,51 +164,16 @@ function ToolCard({
         ))}
       </ul>
 
-      <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-violet-200/90">
+      {/* Rodapé fixo no final do card (alinha em todos) */}
+      <div className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-medium text-violet-200/90">
         Abrir
         <span className="transition-transform group-hover:translate-x-0.5">
           →
         </span>
       </div>
 
-      {/* brilho sutil */}
       <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/5" />
     </Link>
-  );
-}
-
-function Tip({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-2xl border border-amber-200/10 bg-amber-400/[0.06] p-5">
-      <div className="flex items-start gap-3">
-        <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-amber-200/10 bg-amber-400/10">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-5 w-5 text-amber-200"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-          >
-            <path d="M9 18h6" />
-            <path d="M10 22h4" />
-            <path d="M12 2a7 7 0 0 0-4 12c.6.5 1 1.2 1 2v1h6v-1c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z" />
-          </svg>
-        </span>
-
-        <div className="min-w-0">
-          <div className="text-sm font-semibold text-amber-100">{title}</div>
-          <div className="mt-1 text-sm leading-relaxed text-white/70">
-            {children}
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -224,6 +206,24 @@ function IconChart() {
       <path d="M4 19h16" />
       <path d="M7 15l3-3 3 2 4-5" />
       <path d="M17 9h0" />
+    </svg>
+  );
+}
+
+function IconPlan() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
+      <rect x="3" y="4" width="10" height="16" rx="2" />
+      <path d="M9 8h8a2 2 0 0 1 2 2v9" />
+      <path d="M7 12h2" />
+      <path d="M7 16h2" />
+      <circle cx="17" cy="7" r="2" />
     </svg>
   );
 }
